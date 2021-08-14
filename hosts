@@ -1,0 +1,2 @@
+[webservers]
+aws ansible_host=3.68.65.187 ansible_user=ubuntu ansible_private_key_file=/home/alex000/.ssh/aws-ansible-tasks.pem
