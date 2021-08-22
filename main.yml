@@ -1,0 +1,36 @@
+- name: Create nginx service using binary, .conf & .service files
+  hosts: webservers
+  become: True
+  tasks:
+    - name: Download nginx binary
+      unarchive:
+        src: https://nginx.org/download/nginx-1.21.1.tar.gz
+        dest: /usr/sbin
+        remote_src: yes
+    - name: Rename nginx-vvv -> nginx
+      command: mv /usr/sbin/nginx-1.21.1 /usr/sbin/nginx
+    
+    - name: Create directory for nginx.conf
+      ansible.builtin.file:
+        path: /etc/nginx
+        state: directory
+        mode: 0755
+    - name: Craft nginx.conf from j2 template
+      vars:
+        user: Paul
+      ansible.builtin.template:
+        src: files/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+    
+    - name: Copy nginx.service file
+      ansible.builtin.copy:
+        src: files/nginx.service
+        dest: /lib/systemd/system/nginx.service
+    # - name: Enable nginx service
+    #   ansible.builtin.systemd:
+    #     name: nginx
+    #     enabled: yes
+    # - name: Start nginx service
+    #   ansible.builtin.systemd:
+    #     name: nginx
+    #     state: started
