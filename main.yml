@@ -26,11 +26,3 @@
       ansible.builtin.copy:
         src: files/nginx.service
         dest: /lib/systemd/system/nginx.service
-    # - name: Enable nginx service
-    #   ansible.builtin.systemd:
-    #     name: nginx
-    #     enabled: yes
-    # - name: Start nginx service
-    #   ansible.builtin.systemd:
-    #     name: nginx
-    #     state: started
