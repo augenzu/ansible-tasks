@@ -1,5 +1,7 @@
 - name: Create nginx service using binary, .conf & .service files
   hosts: webservers
+  roles:
+    - role: nephelaiio.tree
   become: True
   tasks:
     - name: Download nginx binary
